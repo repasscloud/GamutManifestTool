@@ -1,0 +1,50 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.4.0
+
+jobs:
+  circleci-tests:
+    description: "ci/circleci-tests only for pre-deployment"
+    executor:
+      name: win/default
+      shell: powershell.exe
+    working_directory: C:\circle_ci_build_dir
+    steps:
+      - checkout
+      - run: 
+          name: "System Info"
+          command: systeminfo
+      - run:
+          name: "Check docker"
+          shell: powershell.exe
+          command: |
+            docker info
+            docker run hello-world:nanoserver-1809
+      - run:
+          name: "Install VLC"
+          shell: powershell.exe
+          command: |
+            choco install vlc
+            Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "*Video*"} | Select-Object Name,Version
+      - run:
+          name: "install powershell core"
+          command: dotnet tool install --global PowerShell
+      - run:
+          name: "pscore version table"
+          command: |
+            pwsh.exe -Command {$PSVersionTable}
+      - run:
+          name: "Test PSCore"
+          shell: pwsh
+          command: $PSVersionTable
+
+workflows:
+  build-deploy:
+    jobs:
+      - circleci-tests: # << the job to conditionally run based on the filter-by-branch-name.
+          filters:
+            branches:
+              only:
+                - master
+                - "ci/circleci-tests"
