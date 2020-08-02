@@ -28,3 +28,6 @@ Temporary Items
 # Application files from checksums
 *.msi
 *.exe
+
+# Test files
+app/*
