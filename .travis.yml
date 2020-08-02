@@ -12,7 +12,9 @@ env:
 jobs:
   include:
     - stage: 'Travis-CI Test 1'
-      script: powershell -Command '& .\TravisCI\test.ps1'
+      script: |
+        powershell -Command 'Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Confirm:$false'
+        powershell -Command '& .\TravisCI\test.ps1'
 #    - stage: SysInfo
 #      script: powershell -Command "systeminfo"
 #    - stage: Docker
