@@ -5,6 +5,10 @@ arch:
 branches:
   only:
   - master
+env:
+  global:
+    - TRAVIS_CI_BUILD=$true
+    - CAT_IN_THE_HAT='There was a cat in the hat, meow'
 jobs:
   include:
 #    - stage: SysInfo
@@ -14,14 +18,8 @@ jobs:
 #        docker info
 #        docker run hello-world:nanoserver-1809
     - stage: 'Travis-CI Test 1'
-      script: powershell -Command "Write-Host $TRAVIS_CI_BUILD"
-    - stage: 'Travis-CI Test 2'
-      script: powershell -Command "Write-Host $CAT_IN_THE_HAT"
-    - stage: 'Travis-CI Test 3'
-      script: powershell -Command "Write-Host $Env:TRAVIS_CI_BUILD"
-    - stage: 'Travis-CI Test 4'
-      script: powershell -Command "Write-Host $Env:CAT_IN_THE_HAT"
-env:
-  global:
-    - TRAVIS_CI_BUILD=$true
-    - CAT_IN_THE_HAT='There was a cat in the hat, meow'
+      script: |
+        powershell -Command "Write-Host $TRAVIS_CI_BUILD"
+        powershell -Command "Write-Host $CAT_IN_THE_HAT"
+        powershell -Command "Write-Host $Env:TRAVIS_CI_BUILD"
+        powershell -Command "Write-Host $Env:CAT_IN_THE_HAT"
