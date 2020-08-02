@@ -1,5 +1,5 @@
 # Remove if existing PSD1 file
-$PSD1=$PSScriptRoot+'\app\GamutManifestTool.psd1'
+$PSD1='C:\Projects\GamutManifestTool\app\GamutManifestTool.psd1'
 Write-Output $PSD1
 if (Test-Path -Path $PSD1) {
     Remove-Item -Path $PSD1 -Confirm:$false -Force
