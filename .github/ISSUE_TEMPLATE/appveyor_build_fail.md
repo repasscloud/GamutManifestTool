@@ -2,7 +2,7 @@
 name: Appveyor Build Fail
 about: Report an error on Appveyor build
 title: 'Appveyor Build Error -> '
-labels: 'appveyor-build'
+labels: 'appveyor-build','bug'
 assignees: '@danijeljw'
 
 ---
