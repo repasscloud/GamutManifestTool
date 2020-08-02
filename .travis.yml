@@ -13,14 +13,14 @@ jobs:
 #      script: |
 #        docker info
 #        docker run hello-world:nanoserver-1809
-    - stage: Travis-CI Test 1
-      script: powershell -Command "$TRAVIS_CI_BUILD"
-    - stage: Travis-CI Test 2
-      script: powershell -Command "$CAT_IN_THE_HAT"
-    - stage: Travis-CI Test 3
-      script: powershell -Command $Env:TRAVIS_CI_BUILD
-    - stage: Travis-CI Test 4
-      script: powershell -Command $Env:CAT_IN_THE_HAT
+    - stage: 'Travis-CI Test 1'
+      script: powershell -Command "Write-Host $TRAVIS_CI_BUILD"
+    - stage: 'Travis-CI Test 2'
+      script: powershell -Command "Write-Host $CAT_IN_THE_HAT"
+    - stage: 'Travis-CI Test 3'
+      script: powershell -Command "Write-Host $Env:TRAVIS_CI_BUILD"
+    - stage: 'Travis-CI Test 4'
+      script: powershell -Command "Write-Host $Env:CAT_IN_THE_HAT"
 env:
   global:
     - TRAVIS_CI_BUILD=$true
