@@ -15,8 +15,9 @@ jobs:
 #        docker run hello-world:nanoserver-1809
     - stage: Travis-CI Test
       script: |
-        powershell -Command "$TRAVIS_CI_BUILD"
         powershell -Command "$Env:TRAVIS_CI_BUILD"
+        powershell -Command "$Env:CAT_IN_THE_HAT"
 env:
   global:
     - TRAVIS_CI_BUILD=$true
+    - CAT_IN_THE_HAT='There was a cat in the hat, meow'
