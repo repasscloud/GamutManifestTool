@@ -78,8 +78,8 @@ install:
       "Host name:   $($Host.Name)"
 
 build_script:
-  - ps: & ./CI/AppVeyor/build.ps1
-  - ps: & ./CI/AppVeyor/install.ps1
+  - ps: ./CI/AppVeyor/build.ps1
+  - ps: ./CI/AppVeyor/install.ps1
 #  - ps: ./install.ps1
 
 test_script:
