@@ -52,7 +52,7 @@ function Test-GamutManifest {
         [String]$file_tmp=[System.IO.Path]::Combine($dir_tmp,$([System.GUID]::NewGUID().Guid))
 
         # Set UserAgent for downloading data
-        $userAgent=[Microsoft.PowerShell.Commands.PSUserAgent]::Chrome
+        #$userAgent=[Microsoft.PowerShell.Commands.PSUserAgent]::Chrome
     }
     process {
         # Load Manifest file
