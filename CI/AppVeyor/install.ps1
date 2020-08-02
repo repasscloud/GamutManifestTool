@@ -7,5 +7,5 @@ if (-not $fullPath) {
             $fullPath = Join-Path $fullPath -ChildPath "GamutManifestTool"
 }
 Push-location $PSScriptRoot
-robocopy ..\app $fullPath /MIR
+robocopy C:\Projects\GamutManifestTool\app $fullPath /MIR
 Pop-Location
