@@ -14,7 +14,6 @@
 
 # Import current module
 Write-Output "Import Module -> GamutManifestTool"
-Import-Module 'C:\Program Files\PowerShell\Modules\GamutManifestTool'
 
 # Create new manifest test
 Write-Output "Create Manifest for VLC"
@@ -51,8 +50,7 @@ New-GamutManifest -Category entertainment `
     -UpdateRegex_x86 @('') `
     -OutPath $Env:APPVEYOR_BUILD_FOLDER
 
-<#
+Write-Output 'Test Manifest for VLC'
 Get-ChildItem -Path 'C:\Projects\GamutManifestTool' -Filter 'latest.json' | ForEach-Object {
   Test-GamutManifest -FilePath $_.FullName
 }
-#>
