@@ -1,4 +1,4 @@
 function isURIWeb ($address) {
-    $uri = $address -as [System.URI]
-    $null -ne $uri.AbsoluteURI -and $uri.Scheme -match '[http|https]'
+    $uri = $address -as [System.Uri]
+    $null -ne $uri.AbsoluteUri -and $uri.Scheme -match [regex]::new('(^http$)|(^https$)')
 }
