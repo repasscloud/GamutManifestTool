@@ -10,4 +10,3 @@ $srcPath = $Env:APPVEYOR_BUILD_FOLDER + '\app'
 Push-location $PSScriptRoot
 robocopy $srcPath $fullPath /MIR
 Pop-Location
-Write-Output "Install path is ~> ${fullPath}"
