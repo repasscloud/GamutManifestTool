@@ -7,13 +7,16 @@ branches:
   - master
 jobs:
   include:
-    - stage: SysInfo
-      script: powershell -Command "systeminfo"
-    - stage: Docker
-      script: |
-        docker info
-        docker run hello-world:nanoserver-1809
+#    - stage: SysInfo
+#      script: powershell -Command "systeminfo"
+#    - stage: Docker
+#      script: |
+#        docker info
+#        docker run hello-world:nanoserver-1809
     - stage: Travis-CI Test
       script: |
         powershell -Command "$TRAVIS_CI_BUILD"
         powershell -Command "$Env:TRAVIS_CI_BUILD"
+env:
+  global:
+    - TRAVIS_CI_BUILD=$true
