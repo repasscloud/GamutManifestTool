@@ -11,15 +11,15 @@ env:
     - CAT_IN_THE_HAT='There was a cat in the hat, meow'
 jobs:
   include:
-#    - stage: SysInfo
-#      script: powershell -Command "systeminfo"
-#    - stage: Docker
-#      script: |
-#        docker info
-#        docker run hello-world:nanoserver-1809
     - stage: 'Travis-CI Test 1'
       script: |
         powershell -Command "Write-Host $TRAVIS_CI_BUILD"
         powershell -Command "Write-Host $CAT_IN_THE_HAT"
         powershell -Command "Write-Host $Env:TRAVIS_CI_BUILD"
         powershell -Command "Write-Host $Env:CAT_IN_THE_HAT"
+    - stage: SysInfo
+      script: powershell -Command "systeminfo"
+    - stage: Docker
+      script: |
+        docker info
+        docker run hello-world:nanoserver-1809
