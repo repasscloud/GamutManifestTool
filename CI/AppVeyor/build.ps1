@@ -1,17 +1,28 @@
-$PSD1=$PSScriptRoot+'\GamutManifestTool.psd1'
+# Remove if existing PSD1 file
+$PSD1=$PSScriptRoot+'..\..\app\GamutManifestTool.psd1'
 if (Test-Path -Path $PSD1) {
     Remove-Item -Path $PSD1 -Confirm:$false -Force
 }
 
+# Copy required files to 'App' Directory
+'LICENSE','README.md','CHANGELOG.md' | ForEach-Object {
+    $FileName=$_;
+    Copy-Item -Path ..\..\$FileName -Destination ..\..\app\ -Force -Confirm:$false
+}
+
 $Description=@"
-Build application manifests for Gamut by RePass Cloud and add applications to the growing library of software supported!
+Gamut Manifest Tools helps you build, test, and manage application manifests for Gamut by Repass Cloud.
 
-Using either PSCore or PowerShell, application manifests are like 'recipies' for applications installations and package management using Gamut for end-users.
+Gamut Manifest Tools include:
+  - New-GamutManifest: Build a manifest for an application
+  - Test-GamutManifest: Tests existing manifests for validity before deployment
 
+Leveraging PSCore or PowerShell, application manifests are like 'recipies' for applications installations and package management using Gamut for end-users and can be built on either Windows, MacOS or Linux.
 "@
 
 $FileList=@(
     'Public',
+    'Private',
     '.\LICENSE',
     '.\README.md',
     '.\GamutManifestTool.psm1',
@@ -29,10 +40,8 @@ $ReleaseNotes=@"
 Initial release to PSModule.
 "@
 
-$Public=Get-ChildItem $PSScriptRoot\Public\*.ps1 -ErrorAction SilentlyContinue
-#$Private = Get-ChildItem $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue 
+$Public=Get-ChildItem -Path ..\..\app\Public -Filter "*.ps1" -ErrorAction SilentlyContinue
 [Array]$FunctionsToExport=$($Public | Select-Object -ExpandProperty BaseName)
-
 
 $HelpInfoURI='https://raw.githubusercontent.com/repasscloud/GamutManifestTool/master/README.md'
 
@@ -55,18 +64,21 @@ New-ModuleManifest -Path $PSD1 `
   -FunctionsToExport $FunctionsToExport `
   -HelpInfoUri $HelpInfoURI
 
-if ($Env:APPVEYOR_BUILD_NUMBER) {
-    $CurrentBuild=$Env:APPVEYOR_BUILD_NUMBER
-}
-
 # Update the PS Scripts with the version and build
-$OldVersionString='  Version:';
-$NewVersionString="  Version:        2.1.36.{0}" -f $CurrentBuild
+$OldVersionString='Version:';
+$NewVersionString="Version:        {0}" -f $Env:APPVEYOR_BUILD_VERSION
+# AppVeyor only uses this script, on Github it will run with a different build script
 $LastUpdated='  Last Updated:';
 $LatestUpdated="  Last Updated:   $((Get-Date).ToString('yyyy-MM-dd'))";
-Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\public" -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\app\public" -Filter "*.ps1" | ForEach-Object {
     $ManifestContent = Get-Content -Path $_.FullName -Raw;
     $ManifestContent = $ManifestContent -replace $OldVersionString,$NewVersionString;
     $ManifestContent = $ManifestContent -replace $LastUpdated,$LatestUpdated;
     Set-Content -Path $_.FullName -Value $ManifestContent -Force;
+}
+Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\app\private" -Filter "*.ps1" | ForEach-Object {
+  $ManifestContent = Get-Content -Path $_.FullName -Raw;
+  $ManifestContent = $ManifestContent -replace $OldVersionString,$NewVersionString;
+  $ManifestContent = $ManifestContent -replace $LastUpdated,$LatestUpdated;
+  Set-Content -Path $_.FullName -Value $ManifestContent -Force;
 }

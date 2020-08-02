@@ -38,7 +38,7 @@ init:
   - git config --global core.autocrlf input
 
 # clone directory
-clone_folder: C:\Projects\Get.URLStatusCode
+clone_folder: C:\Projects\GamutManifestTool
 
 # fetch repository as zip archive
 shallow_clone: false                 # default is "false"
@@ -78,10 +78,12 @@ install:
       "Host name:   $($Host.Name)"
 
 build_script:
-#  - ps: ./build.ps1
+  - ps: & ./CI/AppVeyor/build.ps1
+  - ps: & ./CI/AppVeyor/install.ps1
 #  - ps: ./install.ps1
 
 test_script:
+  - ps: & ./CI/AppVeyor/test.ps1
 #  - ps: ./test.ps1
 
 # on successful build
@@ -103,5 +105,5 @@ on_failure:
 
 # after build failure or success
 on_finish:
-  - ps: .\deploy.ps1
+# - ps: .\deploy.ps1
 # - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

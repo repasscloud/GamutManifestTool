@@ -3,6 +3,15 @@
 #Requires -Module GetRedirectedUrl
 #Requires -Module PSWriteColor
 
+<#
+RePass Cloud Test-GamutManifest.ps1
+Copyright 2020 RePass Cloud Pty Ltd
+This product includes software developed at
+RePass Cloud (https://repasscloud.com/).
+Version:
+Last Updated:
+#>
+
 function Test-GamutManifest {
     [CmdletBinding()]
     [OutputType([System.Collections.Hashtable])]

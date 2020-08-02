@@ -1,6 +1,16 @@
 #Requires -Version 5.1
 #Requires -Module Get.URLStatusCode
 #Requires -Module GetRedirectedUrl
+#Requires -Module PSWriteColor
+  
+<#
+RePass Cloud New-GamutManifest.ps1
+Copyright 2020 RePass Cloud Pty Ltd
+This product includes software developed at
+RePass Cloud (https://repasscloud.com/).
+Version:
+Last Updated:
+#>
 
 function New-GamutManifest {
     [CmdletBinding()]

@@ -42,11 +42,11 @@ else {
 }
 
 #Get public and private function definition files.
-$Public=Get-ChildItem $dir_Root\Public\*.ps1 -ErrorAction SilentlyContinue
-#$Private = Get-ChildItem $dir_Root\Private\*.ps1 -ErrorAction SilentlyContinue 
+$Public  = @( Get-ChildItem -Path $dir_Root\Public\*.ps1 -ErrorAction SilentlyContinue )
+$Private = @( Get-ChildItem -Path $dir_Root\Private\*.ps1 -ErrorAction SilentlyContinue )
 
 #Dot source the files
-foreach ( $import in @($Public) ) {
+foreach ( $import in @($Public + $Private) ) {
     try {
         #PS2 compatibility
         if ($import.FullName) {
