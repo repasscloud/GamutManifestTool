@@ -1,5 +1,5 @@
 # Remove if existing PSD1 file
-$PSD1='C:\Projects\GamutManifestTool\app\GamutManifestTool.psd1'
+$PSD1=$Env:APPVEYOR_BUILD_FOLDER + '\app\GamutManifestTool.psd1'
 Write-Output $PSD1
 if (Test-Path -Path $PSD1) {
     Remove-Item -Path $PSD1 -Confirm:$false -Force
@@ -7,8 +7,9 @@ if (Test-Path -Path $PSD1) {
 
 # Copy required files to 'App' Directory
 'LICENSE','README.md','CHANGELOG.md' | ForEach-Object {
-    $FileName=$_;
-    Copy-Item -Path C:\Projects\GamutManifestTool\$FileName -Destination C:\Projects\GamutManifestTool\app\ -Force -Confirm:$false
+    $FileName=$Env:APPVEYOR_BUILD_FOLDER + '\' + $_;
+    $DestinationPath = $Env:APPVEYOR_BUILD_FOLDER + '\app\'
+    Copy-Item -Path $FileName -Destination $DestinationPath -Force -Confirm:$false
 }
 
 $Description=@"
@@ -41,7 +42,7 @@ $ReleaseNotes=@"
 Initial release to PSModule.
 "@
 
-$Public=Get-ChildItem -Path ..\..\app\Public -Filter "*.ps1" -ErrorAction SilentlyContinue
+$Public=Get-ChildItem -Path $Env:APPVEYOR_BUILD_FOLDER\app\Public -Filter "*.ps1" -ErrorAction SilentlyContinue
 [Array]$FunctionsToExport=$($Public | Select-Object -ExpandProperty BaseName)
 
 $HelpInfoURI='https://raw.githubusercontent.com/repasscloud/GamutManifestTool/master/README.md'
@@ -65,19 +66,28 @@ New-ModuleManifest -Path $PSD1 `
   -FunctionsToExport $FunctionsToExport `
   -HelpInfoUri $HelpInfoURI
 
+# Test $PSD1 or Exit
+if (Test-Path -Path $PSD1) {
+  Write-Output 'PSD1 Exists!'
+}
+else {
+  Write-Output 'PSD1 does not exist, exiting!  :('
+  exit 0
+}
+
 # Update the PS Scripts with the version and build
 $OldVersionString='Version:';
 $NewVersionString="Version:        {0}" -f $Env:APPVEYOR_BUILD_VERSION
 # AppVeyor only uses this script, on Github it will run with a different build script
 $LastUpdated='  Last Updated:';
 $LatestUpdated="  Last Updated:   $((Get-Date).ToString('yyyy-MM-dd'))";
-Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\app\public" -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\app\Public" -Filter "*.ps1" | ForEach-Object {
     $ManifestContent = Get-Content -Path $_.FullName -Raw;
     $ManifestContent = $ManifestContent -replace $OldVersionString,$NewVersionString;
     $ManifestContent = $ManifestContent -replace $LastUpdated,$LatestUpdated;
     Set-Content -Path $_.FullName -Value $ManifestContent -Force;
 }
-Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\app\private" -Filter "*.ps1" | ForEach-Object {
+Get-ChildItem -Path "$Env:APPVEYOR_BUILD_FOLDER\app\Private" -Filter "*.ps1" | ForEach-Object {
   $ManifestContent = Get-Content -Path $_.FullName -Raw;
   $ManifestContent = $ManifestContent -replace $OldVersionString,$NewVersionString;
   $ManifestContent = $ManifestContent -replace $LastUpdated,$LatestUpdated;

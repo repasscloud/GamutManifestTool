@@ -6,6 +6,7 @@ if (-not $fullPath) {
             Select-Object -First 1
             $fullPath = Join-Path $fullPath -ChildPath "GamutManifestTool"
 }
+$srcPath = $Env:APPVEYOR_BUILD_FOLDER + '\app'
 Push-location $PSScriptRoot
-robocopy C:\Projects\GamutManifestTool\app $fullPath /MIR
+robocopy $srcPath $fullPath /MIR
 Pop-Location

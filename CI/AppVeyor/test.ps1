@@ -1,28 +1,23 @@
 # Install required modules
-Write-Output @"
-Installing Modules:
-  -> Get.URLStatusCode
-  -> GetRedirectedUrl
-  -> PSWriteColor
-"@
 'Get.URLStatusCode','GetRedirectedUrl','PSWriteColor' | ForEach-Object {
-    Install-Module -Name $_ -Force
+    $m = $_;
+    Write-Output "Installing Module -> ${m}";
+    Install-Module -Name $m -Force;
 }
 
 # Import required modules
-Write-Output @"
-Importing Modules:
-  -> Get.URLStatusCode
-  -> GetRedirectedUrl
-  -> PSWriteColor
-"@
 'Get.URLStatusCode','GetRedirectedUrl','PSWriteColor' | ForEach-Object {
-    Import-Module -Name $_ -Force
+    $m = $_;
+    Write-Output "Importing Module -> ${m}";
+    Import-Module -Name $m -Force;
 }
 
 # Import current module
+Write-Output "Import Module -> GamutManifestTool"
 Import-Module 'C:\Program Files\WindowsPowerShell\Modules\GamutManifestTool'
 
+# Create new manifest test
+Write-Output "Create Manifest for VLC"
 New-GamutManifest -Category entertainment `
     -Publisher 'VideoLAN' `
     -Name 'VLC' `
@@ -54,8 +49,10 @@ New-GamutManifest -Category entertainment `
     -UpdateURI_x86 @('https://www.videolan.org/') `
     -UpdateRegex_x64 @('') `
     -UpdateRegex_x86 @('') `
-    -OutFile C:\Projects\GamutManifestTool
+    -OutPath $Env:APPVEYOR_BUILD_FOLDER
 
+<#
 Get-ChildItem -Path 'C:\Projects\GamutManifestTool' -Filter 'latest.json' | ForEach-Object {
   Test-GamutManifest -FilePath $_.FullName
 }
+#>

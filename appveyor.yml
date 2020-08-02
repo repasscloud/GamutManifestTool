@@ -63,8 +63,11 @@ environment:
     secure: EgLVSzhfEctx0yCxhZCE2v4Or141bwRMrzLs+pyT9x8=
   GITHUB_NAME:
     secure: nd3L/89JuGm9kSnix9hH193TjvElTUlcK9PSHvSkxCc=
+  CLONE_DIR:
+    C:\Projects\GamutManifestTool
 # APPVEYOR_RDP_PASSWORD:
 #   secure: Ps2KNyw17/1mtAm9/5/miw==
+
 # scripts that run after cloning repository
 install:
 #  - ps: .\build.ps1   #~> builds the module on the CI server
@@ -74,7 +77,8 @@ install:
       Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208 -Force
       Install-Module -Name PowerShellGet -Force
       "Git version: $(git.exe --version)"
-      "PSVersion:   $($PSVersionTable.PSVersion), build: $($PSVersionTable.BuildVersion), clr version: $($PSVersionTable.ClrVersion)"
+      "PSVersion:   $($PSVersionTable.PSVersion)"
+      "PSEdition:   $($PSVersionTable.PSEdition)"
       "Host name:   $($Host.Name)"
 
 build_script:
