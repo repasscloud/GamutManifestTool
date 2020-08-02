@@ -48,7 +48,7 @@ New-GamutManifest -Category entertainment `
     -UpdateURI_x86 @('https://www.videolan.org/') `
     -UpdateRegex_x64 @('') `
     -UpdateRegex_x86 @('') `
-    -OutPath 
+    -OutPath $Env:APPVEYOR_BUILD_FOLDER
 
 Write-Output 'Test Manifest for VLC'
 Get-ChildItem -Path $Env:APPVEYOR_BUILD_FOLDER\CI\AppVeyor -Filter 'latest.json' | ForEach-Object {
