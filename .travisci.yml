@@ -1,0 +1,18 @@
+language: shell
+os: windows
+arch:
+- amd64
+branches:
+  only:
+  - master
+jobs:
+  include:
+    - stage: SysInfo
+      script: powershell -Command "systeminfo"
+    - stage: Docker
+      script: |
+        docker info
+            docker info
+            docker run hello-world:nanoserver-1809
+    - stage: Travis-CI Test
+      script: $Env:TRAVIS_CI_BUILD
