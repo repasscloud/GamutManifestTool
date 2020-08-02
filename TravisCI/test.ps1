@@ -1,5 +1,7 @@
+$PSSVersionTable
+
 if ($TRAVIS_CI_BUILD) {
-    Write-Host "This is a TRAVIS-CI build"
+    Write-Output "This is a TRAVIS-CI build"
 }
 
 if ($CAT_IN_THE_HAT) {
