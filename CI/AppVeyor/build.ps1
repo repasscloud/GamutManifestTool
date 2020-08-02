@@ -1,6 +1,6 @@
-Write-Output "<------------------------->"
-Write-Output $Env:APPVEYOR_PROJECT_NAME
-Write-Output "<------------------------->"
+Write-Output '<------------------------------------------>'
+Write-Output $Env:APPVEYOR_REPO_BRANCH
+Write-Output '<------------------------------------------>'
 
 # Remove if existing PSD1 file
 $PSD1=$Env:APPVEYOR_BUILD_FOLDER + '\app\GamutManifestTool.psd1'
