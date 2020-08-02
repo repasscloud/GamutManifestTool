@@ -12,7 +12,7 @@ env:
 jobs:
   include:
     - stage: 'Travis-CI Test 1'
-      script: powershell -File .\\TravisCI\\test.ps1
+      script: powershell -File ".\TravisCI\test.ps1"
 #    - stage: SysInfo
 #      script: powershell -Command "systeminfo"
 #    - stage: Docker
