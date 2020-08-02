@@ -1,5 +1,5 @@
 # Remove if existing PSD1 file
-$PSD1=$PSScriptRoot+'..\..\app\GamutManifestTool.psd1'
+$PSD1=$PSScriptRoot+'\app\GamutManifestTool.psd1'
 Write-Output $PSD1
 if (Test-Path -Path $PSD1) {
     Remove-Item -Path $PSD1 -Confirm:$false -Force
@@ -8,7 +8,7 @@ if (Test-Path -Path $PSD1) {
 # Copy required files to 'App' Directory
 'LICENSE','README.md','CHANGELOG.md' | ForEach-Object {
     $FileName=$_;
-    Copy-Item -Path ..\..\$FileName -Destination ..\..\app\ -Force -Confirm:$false
+    Copy-Item -Path $PSScriptRoot\$FileName -Destination $PSScriptRoot\app\ -Force -Confirm:$false
 }
 
 $Description=@"
