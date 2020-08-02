@@ -8,7 +8,7 @@ if (Test-Path -Path $PSD1) {
 # Copy required files to 'App' Directory
 'LICENSE','README.md','CHANGELOG.md' | ForEach-Object {
     $FileName=$_;
-    Copy-Item -Path $PSScriptRoot\$FileName -Destination $PSScriptRoot\app\ -Force -Confirm:$false
+    Copy-Item -Path C:\Projects\GamutManifestTool\$FileName -Destination C:\Projects\GamutManifestTool\app\ -Force -Confirm:$false
 }
 
 $Description=@"
