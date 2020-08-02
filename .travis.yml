@@ -13,7 +13,7 @@ jobs:
   include:
     - stage: 'Travis-CI Test 1'
       script: |
-        powershell -Command 'Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Confirm:$false'
+        powershell -Command Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Confirm:\$false
         powershell -File '.\TravisCI\tests.ps1'
 #    - stage: SysInfo
 #      script: powershell -Command "systeminfo"
