@@ -14,7 +14,7 @@
 
 # Import current module
 Write-Output "Import Module -> GamutManifestTool"
-Import-Module 'C:\Program Files\WindowsPowerShell\Modules\GamutManifestTool'
+Import-Module 'C:\Program Files\PowerShell\Modules\GamutManifestTool'
 
 # Create new manifest test
 Write-Output "Create Manifest for VLC"
