@@ -50,8 +50,8 @@ New-GamutManifest -Category entertainment `
     -UninstallExe_x86 @('C:\Windows\System32\msiexec.exe') `
     -UninstallArgs_x64 @('/x {0A1870BC-51B4-459D-B681-3B2033298122} /qn') `
     -UninstallArgs_x86 @('/x {162A5CE4-04E4-4879-9CFB-4C7A2171D85A} /qn') `
-    -UpdateURI_x64 @('https://download.videolan.org/pub/videolan/vlc/last/') `
-    -UpdateURI_x86 @('https://download.videolan.org/pub/videolan/vlc/last/') `
+    -UpdateURI_x64 @('https://www.videolan.org/') `
+    -UpdateURI_x86 @('https://www.videolan.org/') `
     -UpdateRegex_x64 @('') `
     -UpdateRegex_x86 @('') `
     -OutFile C:\Projects\GamutManifestTool
