@@ -12,7 +12,6 @@ jobs:
     - stage: Docker
       script: |
         docker info
-            docker info
-            docker run hello-world:nanoserver-1809
+        docker run hello-world:nanoserver-1809
     - stage: Travis-CI Test
       script: $Env:TRAVIS_CI_BUILD
