@@ -13,9 +13,9 @@ jobs:
   include:
     - stage: 'Travis-CI Test 1'
       script: powershell -File .\\TravisCI\\test.ps1
-    - stage: SysInfo
-      script: powershell -Command "systeminfo"
-    - stage: Docker
-      script: |
-        docker info
-        docker run hello-world:nanoserver-1809
+#    - stage: SysInfo
+#      script: powershell -Command "systeminfo"
+#    - stage: Docker
+#      script: |
+#        docker info
+#        docker run hello-world:nanoserver-1809
