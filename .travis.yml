@@ -15,8 +15,8 @@ jobs:
       script: |
         powershell -Command Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Confirm:\$false
         powershell -File travisci-tests.ps1
-        powershell -Command \$TRAVIS_CI_BUILD
-        powershell -Command \$CAT_IN_THE_HAT
+        powershell -Command Write-Output \$TRAVIS_CI_BUILD
+        powershell -Command Write-Output \$CAT_IN_THE_HAT
 #    - stage: SysInfo
 #      script: powershell -Command "systeminfo"
 #    - stage: Docker
