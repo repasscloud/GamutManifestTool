@@ -677,10 +677,13 @@ function New-GamutManifest {
                 $maniDict.Id.Installers.x86.$_lang.MsiExe=$MsiExe_x86[$Languages.IndexOf($_lang)]
 
                 # Everything concenting URI of the input
-                $maniDict.Id.Installers.x86.$_lang.InstallURI=$InstallURI_x86[$Languages.IndexOf($_lang)]
-                $maniDict.Id.Installers.x86.$_lang.FollowURI='put-follow-uri-function-result-here'
-                $maniDict.Id.Installers.x86.$_lang.Sha256='put-sha256-func-result-here'
-                $maniDict.Id.Installers.x86.$_lang.Sha512='put-sha256-func-result-here'
+                $maniDict.Id.Installers.x64.$_lang.InstallURI=$InstallURI_x64[$Languages.IndexOf($_lang)]
+                [String]$pkgdl=Get-RedirectedUrl -Url $InstallURI_x86[$Languages.IndexOf($_lang)]
+                $maniDict.Id.Installers.x86.$_lang.FollowURI=$pkgdl
+                Invoke-WebRequest -Uri $pkgdl -OutFile $file_tmp -WebSession $null -UserAgent $userAgent
+                $maniDict.Id.Installers.x86.$_lang.Sha256=Get-FileHash -Path $file_tmp -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+                $maniDict.Id.Installers.x86.$_lang.Sha512=Get-FileHash -Path $file_tmp -Algorithm SHA512 | Select-Object -ExpandProperty Hash
+                Remove-Item -Path $file_tmp -Force -Confirm:$false
 
                 # Install EXE
                 $maniDict.Id.Installers.x86.$_lang.InstallExe=$InstallExe_x86[$Languages.IndexOf($_lang)]
